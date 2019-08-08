@@ -12,11 +12,18 @@
 - RESOURCE_MANAGER_SERVICE_CONNECTION: ADO Service Connection to use. Must have access to the RESOURCE_GROUP.
 - RESOURCE_GROUP: OpenShift resource group to use
 - ENV_PARAMETERS_FILES: File to use for deploy parameters from env folder
-6. Execute the pipeline
+6. Update the parameters file you're using, whether it is new or old and update the aadClientId and sshPublicKey parameters stored in the keyvault from step 4
+6. (If not using On-Demand VMs) Make sure you have accepted the terms for your BYOS images. Can be done through Azure cli
+```
+az vm image list --all --publisher <publisher> --offer <offer> --sku <sku> --query '[0].urn'
+az vm image accept-terms --urn <urn>
+```
+7. (If not using On-Demand VMs) Make sure to accept here as well [https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription](https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription)
+8. Make sure the service principal connected to the service connection you have created in ADO has the subscription IAM keyvault contributer role in Azure portal
+9. Execute the pipeline
 
 ENVIRONMENT PARAMETER FILES:
 - ata.dev.azuredeploy.parameters: Utilizes Van's RedHat Developer Account with BYOS images. Settings are for ATA Azure subscription. Runs nested templates from https://raw.githubusercontent.com/Microsoft/openshift-container-platform/master. Can be set to this repo to avoid drift, but repo will have to be public. Public cluster deployment. Update NSGs when deployment is complete to whitelist IPs.
-
 
 **ORIGINAL INSTRUCTIONS**
 

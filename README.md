@@ -8,7 +8,15 @@
 2. Run the [https://github.com/ATALLC/smartfm-openshift-deploy](https://github.com/ATALLC/smartfm-openshift-deploy) pipeline first to setup pre-reqs.
 3. Add yourself as a secrets manager in the keyvault
 4. Run the post-deploy script in the smartfm-openshift-deploy repo.
-6. Execute the pipeline passing in the correct environment parameters file in the envs folder.
+5. Create the following pipeline variables
+- RESOURCE_MANAGER_SERVICE_CONNECTION: ADO Service Connection to use. Must have access to the RESOURCE_GROUP.
+- RESOURCE_GROUP: OpenShift resource group to use
+- ENV_PARAMETERS_FILES: File to use for deploy parameters from env folder
+6. Execute the pipeline
+
+ENVIRONMENT PARAMETER FILES:
+- ata.dev.azuredeploy.parameters: Utilizes Van's RedHat Developer Account with BYOS images. Settings are for ATA Azure subscription. Runs nested templates from https://raw.githubusercontent.com/Microsoft/openshift-container-platform/master. Can be set to this repo to avoid drift, but repo will have to be public. Public cluster deployment. Update NSGs when deployment is complete to whitelist IPs.
+
 
 **ORIGINAL INSTRUCTIONS**
 

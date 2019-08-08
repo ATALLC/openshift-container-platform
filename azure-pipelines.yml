@@ -1,19 +1,29 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Deploy OpenShift Container Platform Utilizing ENV_PARAMETERS_FILE variable to specify the file in the envs folder. 
+# Uses Fork of https://github.com/microsoft/openshift-container-platform
+# https://github.com/ATALLC/openshift-container-platform
 
 trigger:
-- master
+- none
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+stages:
+- stage: Deploy
+  displayName: Deploy
+  jobs:
+  - deployment: Deploy
+    displayName: Deploy
+    pool:
+      name: 'smartFMAgentPool'
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: AzureResourceGroupDeployment@2
+            displayName: 'Azure Deployment:Create Or Update Resource Group action on ADO Agent'
+            inputs:
+              azureSubscription: $(RESOURCE_MANAGER_SERVICE_CONNECTION)
+              resourceGroupName: $(RESOURCE_GROUP)
+              location: 'East US'
+              csmFile: 'azuredeploy.json'
+              csmParametersFile: 'envs/$(ENV_PARAMETERS_FILE)'

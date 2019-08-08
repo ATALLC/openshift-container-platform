@@ -1,6 +1,16 @@
 # OpenShift Container Platform Deployment Template
 
-## NOTE: Structure of Repo
+## NOTE: Forked from [https://github.com/microsoft/openshift-container-platform](https://github.com/microsoft/openshift-container-platform)
+
+**ATA ADO Setup Instructions**
+
+1. READ THE ORIGINAL INSTRUCTIONS CAREFULLY. 
+2. Run the [https://github.com/ATALLC/smartfm-openshift-deploy](https://github.com/ATALLC/smartfm-openshift-deploy) pipeline first to setup pre-reqs.
+3. Add yourself as a secrets manager in the keyvault
+4. Run the post-deploy script in the smartfm-openshift-deploy repo.
+6. Execute the pipeline passing in the correct environment parameters file in the envs folder.
+
+**ORIGINAL INSTRUCTIONS**
 
 **The Master branch has been updated to deploy version 3.11**
 

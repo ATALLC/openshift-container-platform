@@ -10,7 +10,6 @@
 - AGENT_POOL: The ADO agent pool to use
 - RESOURCE_MANAGER_SERVICE_CONNECTION: ADO Service Connection to use. Must have access to the RESOURCE_GROUP.
 - RESOURCE_GROUP: OpenShift resource group to use.
-- ENV_PARAMETERS_FILES: File to use for deploy parameters from env folder.
 - OS_ADMIN_USER_NAME: Openshift Administrator user name.
 - IMG_PUBLISHER: Publisher for your BYOS image, or the on-demand linux image you are using.
 - IMG_OFFER: Offer for your BYOS image, or the on-demand linux image you are using.

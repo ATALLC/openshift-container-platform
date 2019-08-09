@@ -33,7 +33,7 @@ stages:
               sed -i.bak 's|SSHPUBLICKEY|$(SSH_PUBLIC_KEY)|g' azuredeploy.parameters.json
               sed -i.bak 's|KEYVAULTSUBSCRIPTIONID|$(KEYVAULT_SUBSCRIPTION_ID)|g' azuredeploy.parameters.json
               sed -i.bak 's|KEYVAULTRESOURCEGROUP|$(KEYVAULT_RESOURCE_GROUP)|g' azuredeploy.parameters.json
-              sed -i.bak 's|KEYVAULTNAME|$(KEY_VAULT_NAME)|g' azuredeploy.parameters.json
+              sed -i.bak 's|KEYVAULTNAME|$(KEYVAULT_NAME)|g' azuredeploy.parameters.json
               sed -i.bak 's|AADCLIENTID|$(AAD_CLIENT_ID)|g' azuredeploy.parameters.json
             displayName: 'Update variables in parameter file from pipeline variables'
           - task: AzureResourceGroupDeployment@2

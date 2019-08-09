@@ -22,7 +22,7 @@
 - SSH_PUBLIC_KEY: Public key generated in step 2. Located in Keyvault.
 - KEYVAULT_SUBSCRIPTION_ID: Azure subscription id for the resource group that hosts the Azure key vault.
 - KEYVAULT_RESOURCE_GROUP: Resource group hosting the Azure key vault.
-- KEY_VAULT_NAME: Name of the Azure key vault.
+- KEYVAULT_NAME: Name of the Azure key vault.
 - AAD_CLIENT_ID: Application id of the service principal generated in step 2.
 4. Execute the pipeline
 

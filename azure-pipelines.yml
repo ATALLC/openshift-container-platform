@@ -1,4 +1,4 @@
-# Deploy OpenShift Container Platform Utilizing ENV_PARAMETERS_FILE variable to specify the file in the envs folder. 
+# Deploy OpenShift Container Platform
 # Uses Fork of https://github.com/microsoft/openshift-container-platform
 # https://github.com/ATALLC/openshift-container-platform
 
@@ -20,21 +20,21 @@ stages:
           steps:
           - checkout: self
           - script: |
-              sed 's/OSADMINUSERNAME/$(OS_ADMIN_USER_NAME)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/IMGPUBLISHER/$(IMG_PUBLISHER)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/IMGOFFER/$(IMG_OFFER)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/IMGSKU/$(IMG_SKU)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/IMGVERSION/$(IMG_VERSION)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/MASTERCOUNT/$(MASTER_COUNT)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/INFRCOUNT/$(INFR_COUNT)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/NODECOUNT/$(NODE_COUNT)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/RHSMORGID/$(RHSM_ORG_ID)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/RHSMPOOLID/$(RHSM_POOL_ID)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/SSHPUBLICKEY/$(SSH_PUBLIC_KEY)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/KEYVAULTSUBSCRIPTIONID/$(KEYVAULT_SUBSCRIPTION_ID)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/KEYVAULTRESOURCEGROUP/$(KEYVAULT_RESOURCE_GROUP)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/KEYVAULTNAME/$(KEY_VAULT_NAME)/g' envs/ata.dev.azuredeploy.parameters.json
-              sed 's/AADCLIENTID/$(AAD_CLIENT_ID)/g' envs/ata.dev.azuredeploy.parameters.json
+              sed 's/OSADMINUSERNAME/$(OS_ADMIN_USER_NAME)/g' azuredeploy.parameters.json
+              sed 's/IMGPUBLISHER/$(IMG_PUBLISHER)/g' azuredeploy.parameters.json
+              sed 's/IMGOFFER/$(IMG_OFFER)/g' azuredeploy.parameters.json
+              sed 's/IMGSKU/$(IMG_SKU)/g' azuredeploy.parameters.json
+              sed 's/IMGVERSION/$(IMG_VERSION)/g' azuredeploy.parameters.json
+              sed 's/MASTERCOUNT/$(MASTER_COUNT)/g' azuredeploy.parameters.json
+              sed 's/INFRCOUNT/$(INFR_COUNT)/g' azuredeploy.parameters.json
+              sed 's/NODECOUNT/$(NODE_COUNT)/g' azuredeploy.parameters.json
+              sed 's/RHSMORGID/$(RHSM_ORG_ID)/g' azuredeploy.parameters.json
+              sed 's/RHSMPOOLID/$(RHSM_POOL_ID)/g' azuredeploy.parameters.json
+              sed 's/SSHPUBLICKEY/$(SSH_PUBLIC_KEY)/g' azuredeploy.parameters.json
+              sed 's/KEYVAULTSUBSCRIPTIONID/$(KEYVAULT_SUBSCRIPTION_ID)/g' azuredeploy.parameters.json
+              sed 's/KEYVAULTRESOURCEGROUP/$(KEYVAULT_RESOURCE_GROUP)/g' azuredeploy.parameters.json
+              sed 's/KEYVAULTNAME/$(KEY_VAULT_NAME)/g' azuredeploy.parameters.json
+              sed 's/AADCLIENTID/$(AAD_CLIENT_ID)/g' azuredeploy.parameters.json
             displayName: 'Update variables in parameter file from pipeline variables'
           - task: AzureResourceGroupDeployment@2
             displayName: 'Azure Deployment:Create Or Update Resource Group action on ADO Agent'
@@ -43,4 +43,4 @@ stages:
               resourceGroupName: $(RESOURCE_GROUP)
               location: 'East US'
               csmFile: 'azuredeploy.json'
-              csmParametersFile: '$(ENV_PARAMETERS_FILE)'
+              csmParametersFile: 'azuredeploy.parameters.json'

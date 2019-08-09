@@ -5,25 +5,35 @@
 **ATA ADO Setup Instructions**
 
 1. READ THE ORIGINAL INSTRUCTIONS CAREFULLY. 
-2. Run the [https://github.com/ATALLC/smartfm-openshift-deploy](https://github.com/ATALLC/smartfm-openshift-deploy) pipeline first to setup pre-reqs.
-3. Add yourself as a secrets manager in the keyvault
-4. Run the post-deploy script in the smartfm-openshift-deploy repo.
-5. Create the following pipeline variables
+2. Set-up pre-requisites in original documentation. For ATA members, use the following repo [https://github.com/ATALLC/smartfm-openshift-deploy](https://github.com/ATALLC/smartfm-openshift-deploy) to automatically create those pre-reqs.
+3. Create the following pipeline variables
+- AGENT_POOL: The ADO agent pool to use
 - RESOURCE_MANAGER_SERVICE_CONNECTION: ADO Service Connection to use. Must have access to the RESOURCE_GROUP.
-- RESOURCE_GROUP: OpenShift resource group to use
-- ENV_PARAMETERS_FILES: File to use for deploy parameters from env folder
-6. Update the parameters file you're using, whether it is new or old and update the aadClientId and sshPublicKey parameters stored in the keyvault from step 4
-6. (If not using On-Demand VMs) Make sure you have accepted the terms for your BYOS images. Can be done through Azure cli
+- RESOURCE_GROUP: OpenShift resource group to use.
+- ENV_PARAMETERS_FILES: File to use for deploy parameters from env folder.
+- OS_ADMIN_USER_NAME: Openshift Administrator user name.
+- IMG_PUBLISHER: Publisher for your BYOS image, or the on-demand linux image you are using.
+- IMG_OFFER: Offer for your BYOS image, or the on-demand linux image you are using.
+- IMG_SKU: SKU for your BYOS image, or the on-demand linux image you are using.
+- IMG_VERSION: Version for your BYOS image, or the on-demand linux image you are using.
+- MASTER_COUNT: Number of master nodes.
+- INFR_COUNT: Number of infrastructure nodes.
+- NODE_COUNT: Number of application nodes.
+- RHSM_ORG_ID: Red Hat subscription manager organization id.
+- RHSM_POOL_ID: Red Hat subscription pool id.
+- SSH_PUBLIC_KEY: Public key generated in step 2. Located in Keyvault.
+- KEYVAULT_SUBSCRIPTION_ID: Azure subscription id for the resource group that hosts the Azure key vault.
+- KEYVAULT_RESOURCE_GROUP: Resource group hosting the Azure key vault.
+- KEY_VAULT_NAME: Name of the Azure key vault.
+- AAD_CLIENT_ID: Application id of the service principal generated in step 2.
+4. Execute the pipeline
+
+Note: 6. (If not using On-Demand VMs) Make sure you have accepted the terms for your BYOS images. Can be done through Azure cli
 ```
 az vm image list --all --publisher <publisher> --offer <offer> --sku <sku> --query '[0].urn'
 az vm image accept-terms --urn <urn>
 ```
-7. (If not using On-Demand VMs) Make sure to accept here as well [https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription](https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription)
-8. Make sure the service principal connected to the service connection you have created in ADO has the subscription IAM keyvault contributer role in Azure portal
-9. Execute the pipeline
-
-ENVIRONMENT PARAMETER FILES:
-- ata.dev.azuredeploy.parameters: Utilizes Van's RedHat Developer Account with BYOS images. Settings are for ATA Azure subscription. Runs nested templates from https://raw.githubusercontent.com/Microsoft/openshift-container-platform/master. Can be set to this repo to avoid drift, but repo will have to be public. Public cluster deployment. Update NSGs when deployment is complete to whitelist IPs.
+Make sure to accept here as well [https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription](https://www.redhat.com/wapps/tnc/ackrequired?site=candlepin&event=attachSubscription)
 
 **ORIGINAL INSTRUCTIONS**
 
